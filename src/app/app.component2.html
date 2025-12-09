@@ -1,0 +1,99 @@
+<div class="main-container">
+  <header class="header">
+    <h1>🧪 WebSocket Architecture Comparison</h1>
+    <p class="subtitle">Análisis Crítico: Guards vs Resolvers vs Services</p>
+  </header>
+
+  <nav class="navigation">
+    <h2>🚀 Selecciona un Escenario para Probar:</h2>
+    
+    <div class="nav-grid">
+      <a routerLink="/socket_guard" class="nav-card bad">
+        <div class="nav-icon">🔴</div>
+        <h3>Opción 1: Guard</h3>
+        <p>Inicialización en CanActivate Guard</p>
+        <span class="badge danger">Mala Práctica</span>
+        <ul class="pain-points">
+          <li>⚠️ Fire-and-forget (sin garantías)</li>
+          <li>⚠️ Race conditions</li>
+          <li>⚠️ Sin manejo de errores</li>
+        </ul>
+      </a>
+
+      <a routerLink="/socket_resolver" class="nav-card worse">
+        <div class="nav-icon">🟡</div>
+        <h3>Opción 2: Resolver</h3>
+        <p>Inicialización en Route Resolver</p>
+        <span class="badge warning">Muy Mala Práctica</span>
+        <ul class="pain-points">
+          <li>💀 Bloquea navegación completa</li>
+          <li>💀 Destruye Core Web Vitals</li>
+          <li>💀 Usuario atrapado si falla</li>
+        </ul>
+      </a>
+
+      <a routerLink="/socket_service_a" class="nav-card good">
+        <div class="nav-icon">🟢</div>
+        <h3>Opción 3: Service</h3>
+        <p>Inicialización en ngOnInit del Componente</p>
+        <span class="badge success">Buena Práctica ✅</span>
+        <ul class="pain-points">
+          <li>✅ No bloqueante</li>
+          <li>✅ Core Web Vitals optimizados</li>
+          <li>✅ Resiliente y graceful</li>
+        </ul>
+      </a>
+    </div>
+  </nav>
+
+  <section class="info-section">
+    <h2>📋 Instrucciones para el Test:</h2>
+    <ol>
+      <li><strong>Abre la consola del navegador</strong> (F12 o Ctrl+Shift+I)</li>
+      <li><strong>Navega a cada opción</strong> y observa los mensajes en consola</li>
+      <li><strong>Presta atención a:</strong>
+        <ul>
+          <li>Tiempo que tardas en ver contenido</li>
+          <li>Orden de los eventos (render vs conexión)</li>
+          <li>Comportamiento en caso de error</li>
+          <li>Mensajes de pain points en consola</li>
+        </ul>
+      </li>
+      <li><strong>Para Service (Opción 3):</strong> Navega entre Service A y Service B para ver el singleton pattern en acción</li>
+    </ol>
+  </section>
+
+  <section class="metrics-info">
+    <h2>📊 Core Web Vitals a Observar:</h2>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <h3>LCP</h3>
+        <p><strong>Largest Contentful Paint</strong></p>
+        <p>Tiempo hasta que el contenido principal es visible</p>
+        <span class="target">Target: &lt; 2.5s</span>
+      </div>
+      <div class="metric-card">
+        <h3>FCP</h3>
+        <p><strong>First Contentful Paint</strong></p>
+        <p>Tiempo hasta el primer píxel renderizado</p>
+        <span class="target">Target: &lt; 1.8s</span>
+      </div>
+      <div class="metric-card">
+        <h3>TBT</h3>
+        <p><strong>Total Blocking Time</strong></p>
+        <p>Tiempo total que la UI está bloqueada</p>
+        <span class="target">Target: &lt; 200ms</span>
+      </div>
+      <div class="metric-card">
+        <h3>INP</h3>
+        <p><strong>Interaction to Next Paint</strong></p>
+        <p>Tiempo de respuesta a interacciones</p>
+        <span class="target">Target: &lt; 200ms</span>
+      </div>
+    </div>
+  </section>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
